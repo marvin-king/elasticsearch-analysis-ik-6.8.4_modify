@@ -47,8 +47,6 @@ class AnalyzeContext {
 	private static final int BUFF_SIZE = 4096;
 	//缓冲区耗尽的临界值
 	private static final int BUFF_EXHAUST_CRITICAL = 100;
-
-	private static Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
 	//字符串读取缓冲
     private char[] segmentBuff;
     //字符类型数组
@@ -324,10 +322,10 @@ class AnalyzeContext {
     		//数量词合并
     		this.compound(result);
     		//增加长度小于2并且不是数字的情况直接过滤
-    		if((result.getLength() < 2 && !isInteger(result.getLexemeText()))
+    		if((result.getLength() < 2 && Lexeme.TYPE_ARABIC != result.getLexemeType())
 				|| Dictionary.getSingleton().isStopWord(this.segmentBuff ,  result.getBegin() , result.getLength())){
        			//是停止词继续取列表的下一个
-    			result = this.results.pollFirst(); 				
+    			result = this.results.pollFirst();
     		}else{
 	 			//不是停止词, 生成lexeme的词元文本,输出
 	    		result.setLexemeText(String.valueOf(segmentBuff , result.getBegin() , result.getLength()));
@@ -394,9 +392,5 @@ class AnalyzeContext {
 			}
 
 		}
-	}
-
-	public static boolean isInteger(String str) {
-		return pattern.matcher(str).matches();
 	}
 }
