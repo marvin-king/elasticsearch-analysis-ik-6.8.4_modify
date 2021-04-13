@@ -100,7 +100,7 @@ public class Dictionary {
 	private Dictionary(Configuration cfg) {
 		this.configuration = cfg;
 		this.props = new Properties();
-		this.conf_dir = Paths.get("D:\\studyproject\\elasticsearch-analysis-ik-6.8.4\\elasticsearch-analysis-ik-6.8.4\\config");
+		this.conf_dir = cfg.getEnvironment().configFile().resolve(AnalysisIkPlugin.PLUGIN_NAME);
 		Path configFile = conf_dir.resolve(FILE_NAME);
 
 		InputStream input = null;
