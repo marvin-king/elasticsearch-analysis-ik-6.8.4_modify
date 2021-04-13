@@ -19,7 +19,7 @@ public class MainTest {
         testIkSegment();
     }
     public static void testIkSegment() throws IOException {
-        String t = "11";
+        String t = "1s";
         Settings settings =  Settings.builder()
             .put("use_smart", false)
             .put("enable_lowercase", false)
